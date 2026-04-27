@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "FindMyFile": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Users\\ClaudioSavoldi\\Desktop\\test\r\n*.txt"
+    }
+  }
+}
