@@ -1,4 +1,5 @@
-﻿//- Permettere di passare come argomenti, in questo ordine:
+﻿//STAGE1
+//- Permettere di passare come argomenti, in questo ordine:
 //-la cartella in cui eseguire la ricerca (opzionale, altrimenti si prende quella corrente)
 //- il filtro di ricerca (opzionale, se non inserito si cercano tutti i file)
 //- Supportare filtri standard come filtri * e ? (es. *.pdf)
@@ -6,33 +7,97 @@
 //- Progressivamente visualizzare il percorso completo dei file trovati
 //- Alla fine indicare il numero di file trovati
 //-------------------------------
+
+//STAGE2
 //Accettare o meno l'opzione -r
-//- Se presente, eseguire la ricerca anche nelle sotto-cartelle (applicando lo stesso filtro)Accettare o meno l'opzione -r
+//  - Se presente, eseguire la ricerca anche nelle sotto-cartelle (applicando lo stesso filtro)Accettare o meno     l'opzione -r
 //- Se presente, eseguire la ricerca anche nelle sotto-cartelle (applicando lo stesso filtro)
+//---------------------------------
 
+//STAGE3
+//- Accettare l'opzione -h per stampare una breve guida dell'uso dell'applicazione
+//- Visualizzare un errore se vi sono altri argomenti... visualizzare a sua volta la guida- Accettare l'opzione -h per stampare una breve guida dell'uso dell'applicazione
+//- Visualizzare un errore se vi sono altri argomenti... visualizzare a sua volta la guida
+//---------------------------------
 
-//prendo la cartella da args oppure uso quella corrente se non è stata passata
-var path = args.Length > 0 ? args[0] : Directory.GetCurrentDirectory();
-//il filtro sara args[1] se inserito, altrimenti cerco tutti i file
-var searchPattern = args.Length > 1 ? args[1] : string.Empty; //oppure "*"
-
-var searchOption = args.Contains("-r") ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
-
-Console.WriteLine(path);
-Console.WriteLine("-----------------------------");
-
-//var files = Directory.GetFiles(path, searchPattern);
-//Scelgo EnumarateFiles per evitare di caricare tutto in memoria, 
-var files = Directory.EnumerateFiles(path, searchPattern,searchOption);
-
-//i file vengono generati e consumati uno per volta nel foreach.
-int counter = 0;
-foreach (var file in files)
+if (args.Contains("-h"))
 {
-    Console.WriteLine(file);
-    counter++;
+    PrintHelp();
+    return;
 }
 
-//Non posso usare il .lenght perchè files non è piu un array
-//Console.WriteLine(files.Count());
-Console.WriteLine($"Numero di file trovati:{counter} ");
+Console.WriteLine("Modalità di ricerca");
+Console.WriteLine("====================================");
+
+var path = GetPath(args);
+var searchPattern = GetSearchPattern(args);
+var searchOption = GetSearchOption(args);
+
+
+
+
+if (!Directory.Exists(path))
+{
+    Console.WriteLine($"Errore: la cartella '{path}' non esiste.");
+    PrintHelp();
+    return;
+}
+
+SearchFiles(path, searchPattern, searchOption);
+
+
+
+//-----------------Metodi-----------------------------
+void PrintHelp()
+{
+    Console.WriteLine("""
+    Guida utilizzo:
+
+    FindMyFile [cartella] [filtro] [-r]
+    FindMyFile -h
+
+    cartella    opzionale: cartella in cui cercare
+    filtro      opzionale: filtro tipo *.txt, *.pdf, file?.docx
+    -r          opzionale: cerca anche nelle sottocartelle
+    -h          mostra questa guida
+    """);
+}
+//-----------------------------------------------------
+string GetPath(string[] args)
+{
+    return args.Length > 0 ? args[0] : Directory.GetCurrentDirectory();
+}
+
+string GetSearchPattern(string[] args)
+{
+    return args.Length > 1 ? args[1] : string.Empty;
+}
+
+SearchOption GetSearchOption(string[] args)
+{
+    return args.Contains("-r")
+        ? SearchOption.AllDirectories
+        : SearchOption.TopDirectoryOnly;
+}
+//-----------------------------------------------------
+void SearchFiles(string path, string searchPattern, SearchOption searchOption)
+{
+ 
+    Console.WriteLine($"Cartella: {path}");
+    Console.WriteLine($"Filtro: {searchPattern}");
+    Console.WriteLine($"Ricorsiva: {searchOption == SearchOption.AllDirectories}");
+    Console.WriteLine("-----------------------------");
+
+    var files = Directory.EnumerateFiles(path, searchPattern, searchOption);
+
+    int counter = 0;
+
+    foreach (var file in files)
+    {
+        Console.WriteLine(file);
+        counter++;
+    }
+
+    Console.WriteLine("-----------------------------");
+    Console.WriteLine($"Numero di file trovati: {counter}");
+}
