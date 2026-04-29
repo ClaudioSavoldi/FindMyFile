@@ -1,4 +1,8 @@
-﻿
+﻿//========================================================
+// Esercizio di gestione file system:
+// crea una struttura di cartelle, genera file di esempio,
+// copia i file in backup e li sposta in archivio.
+//========================================================
 
 
 // Cartella base su cui lavorare

@@ -5,8 +5,6 @@ VisualStudioVersion = 17.14.36623.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindMyFile", "FindMyFile.csproj", "{4DD9FD65-6ED4-4D98-8DC6-7EC728A09144}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileSystemExercise2", "..\FileSystemExercise2\FileSystemExercise2.csproj", "{33B7CA9B-238D-4B10-BA7E-7AC217AB6209}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{4DD9FD65-6ED4-4D98-8DC6-7EC728A09144}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DD9FD65-6ED4-4D98-8DC6-7EC728A09144}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4DD9FD65-6ED4-4D98-8DC6-7EC728A09144}.Release|Any CPU.Build.0 = Release|Any CPU
-		{33B7CA9B-238D-4B10-BA7E-7AC217AB6209}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{33B7CA9B-238D-4B10-BA7E-7AC217AB6209}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{33B7CA9B-238D-4B10-BA7E-7AC217AB6209}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{33B7CA9B-238D-4B10-BA7E-7AC217AB6209}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
