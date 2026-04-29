@@ -20,6 +20,8 @@
 //- Visualizzare un errore se vi sono altri argomenti... visualizzare a sua volta la guida
 //---------------------------------
 
+
+// Se viene passato -h mostro la guida e termino il programma
 if (args.Contains("-h"))
 {
     PrintHelp();
@@ -29,13 +31,12 @@ if (args.Contains("-h"))
 Console.WriteLine("Modalità di ricerca");
 Console.WriteLine("====================================");
 
+// Recupero path, filtro e opzione dagli argomenti
 var path = GetPath(args);
 var searchPattern = GetSearchPattern(args);
 var searchOption = GetSearchOption(args);
 
-
-
-
+// Verifico che la cartella esista prima di eseguire la ricerca
 if (!Directory.Exists(path))
 {
     Console.WriteLine($"Errore: la cartella '{path}' non esiste.");
@@ -43,9 +44,8 @@ if (!Directory.Exists(path))
     return;
 }
 
+// Avvio ricerca file secondo i parametri selezionati
 SearchFiles(path, searchPattern, searchOption);
-
-
 
 //-----------------Metodi-----------------------------
 void PrintHelp()
@@ -88,6 +88,7 @@ void SearchFiles(string path, string searchPattern, SearchOption searchOption)
     Console.WriteLine($"Ricorsiva: {searchOption == SearchOption.AllDirectories}");
     Console.WriteLine("-----------------------------");
 
+    // EnumerateFiles restituisce i file progressivamente senza caricarli tutti in memoria
     var files = Directory.EnumerateFiles(path, searchPattern, searchOption);
 
     int counter = 0;
